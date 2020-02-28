@@ -57,4 +57,40 @@ module.exports = {
           });
         });
       },
+
+      deletelistRoom: (id)=>{
+        return new Promise((resolve, reject)=>{
+            connecting.query(`DELETE FROM listroom WHERE id = ${id}`, (err, result)=>{
+                if(!err){
+                    resolve(result)
+                }else{
+                    reject(err)
+                }
+            })
+        })
+    },
+
+    insertlistRoom: (data)=>{
+        return new Promise((resolve, reject)=>{
+            connecting.query("INSERT INTO listroom SET ?",data, (err, result)=>{
+                if(!err){
+                    resolve(result)
+                }else{
+                    reject(err)
+                }
+            })
+        })
+    },
+
+    updatelistRoom: (data,id)=>{
+        return new Promise((resolve, reject)=>{
+            connecting.query("UPDATE listroom SET ? WHERE id= ? ",[data,id], (err, result)=>{
+                if(!err){
+                    resolve(result)
+                }else{
+                    reject(err)
+                }
+            })
+        })
+    },
 }

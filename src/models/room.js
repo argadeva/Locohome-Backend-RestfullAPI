@@ -14,7 +14,7 @@ module.exports = {
         })
     },
 
-    deleteRoom: (id)=>{
+    deletelistRoom: (id)=>{
         return new Promise((resolve, reject)=>{
             connecting.query(`DELETE FROM room WHERE id = ${id}`, (err, result)=>{
                 if(!err){

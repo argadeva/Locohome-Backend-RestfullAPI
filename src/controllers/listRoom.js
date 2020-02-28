@@ -55,4 +55,57 @@ module.exports = {
       })
       .catch(err=>console.log(err))
     },
+
+    deletelistRoom: (req, res)=>{
+      const id = req.params.id;
+      listroomModel.deletelistRoom(id)
+      .then(result=>{
+          result['id']= id
+          miscHelper.response(res, result, 200)
+      })
+      .catch(err=> console.log(err))
+  },
+
+  insertlistRoom: (req,res)=>{
+    const {idroom, description, bedType,fan, wardrobe, toilet, priceNight, personInroom, idGender} = req.body;
+    const data = {
+        idroom,
+        description,
+        bedType,
+        fan,
+        wardrobe,
+        toilet,
+        priceNight,
+        personInroom,
+        idGender,
+    }
+    listroomModel.insertlistRoom(data)
+    .then((result)=>{
+        data['id'] = result.insertId
+        res.json(data)
+    })
+    .catch(err=>console.log(err))
+},
+
+updatelistRoom: (req,res)=>{
+  const id = req.params.id;
+  const {idroom, description, bedType,fan, wardrobe, toilet, priceNight, personInroom, idGender} = req.body;
+  const data = {
+      idroom,
+      description,
+      bedType,
+      fan,
+      wardrobe,
+      toilet,
+      priceNight,
+      personInroom,
+      idGender,
+  }
+  listroomModel.updatelistRoom(data, id)
+  .then((result)=>{
+      data['id'] = id
+      res.json(data)
+  })
+  .catch(err=>console.log(err))
+},
 }
