@@ -1,8 +1,10 @@
 const express = require("express");
-// const users = require("./users");
+const room = require("./room");
+const listroom = require("./listroom");
 
 const Router = express.Router();
 
-// Router.use("/users", users);
+Router.use("/room", room);
+Router.use("/listroom", listroom);
 
 module.exports = Router;
