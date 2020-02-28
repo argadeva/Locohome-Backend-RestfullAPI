@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/uploads", express.static("./uploads"));
 
-const router = require("./src/router/index.js");
+const router = require("./src/router/index");
 app.use("/api/v1", router);
 
 app.listen(port, () => {
