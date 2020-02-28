@@ -36,5 +36,25 @@ module.exports = {
                 }
             })
         })
-    }
+    },
+
+    countlistRoom:()=>{
+        return new Promise((resolve, reject)=>{
+            connecting.query('SELECT COUNT(*) AS id FROM listroom', (err, result)=>{
+              resolve(result);
+            });
+        });
+    },
+
+    paginationlistRoom :(page, pages)=>{
+        return new Promise((resolve, reject)=>{
+          connecting.query(`SELECT * FROM listroom LIMIT ${page+", "+pages}`, (err, result)=>{
+            if(!err){
+              resolve(result);
+            }else{
+              reject(new Error(err));
+            }
+          });
+        });
+      },
 }

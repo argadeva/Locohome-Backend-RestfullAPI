@@ -9,5 +9,6 @@ Router
 .get('/:idRoom', listRoomController.getlistRoom)
 .get('/search/:data', listRoomController.searchlistRoom)
 .get('/sort/:data', listRoomController.sortRoom)
+.get('/pagination/:page', listRoomController.paginationlistRoom)
 
 module.exports = Router;
