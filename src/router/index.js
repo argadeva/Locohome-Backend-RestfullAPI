@@ -1,8 +1,8 @@
 const express = require("express");
-// const users = require("./users");
+const room = require("./Room");
 
 const Router = express.Router();
 
-// Router.use("/users", users);
+Router.use("/room", room);
 
 module.exports = Router;
