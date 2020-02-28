@@ -2,7 +2,7 @@ const Express = require('express');
 const Multer = require('multer');
 
 const Router = Express.Router();
-const RoomController = require('../controllers/Room');
+const RoomController = require('../controllers/room');
 
 
 Router
