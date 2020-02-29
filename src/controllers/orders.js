@@ -1,5 +1,6 @@
 const miscHelper = require("../helpers/message");
 const ordersModel = require("../models/orders");
+const moment = require('moment');
 
 module.exports = {
   getOrders: (req, res) => {
@@ -26,7 +27,7 @@ module.exports = {
       dateCheckIn,
       dateCheckOut,
       totalPrice,
-      paymentStatus
+      paymentStatus,
     } = req.body;
     const data = {
       idUser,
@@ -36,12 +37,24 @@ module.exports = {
       totalPrice,
       paymentStatus
     };
+    // console.log(dateCheckIn)
     ordersModel
       .addOrders(data)
       .then(result => {
-        miscHelper.response(res, result, "Success", 200);
+        data['id'] = result.insertId;
+        miscHelper.response(res, data, "Success", 200);
       })
       .catch(err => console.log(err));
+    
+    const dd = moment(dateCheckIn) 
+    const mm = moment(dateCheckOut)
+    for (var m = moment(dd); m.isBefore(mm); m.add(1, 'days')) {
+      // console.log(m.format('YYYY-MM-DD'));
+      const dateBooked = m.format('YYYY-MM-DD')
+      const input = {idListRoom,dateBooked}
+      // console.log(input)
+      ordersModel.addbookedList(input)
+    }
   },
   updateOrders: (req, res) => {
     const {

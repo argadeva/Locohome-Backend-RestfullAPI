@@ -64,5 +64,18 @@ module.exports = {
         }
       });
     });
-  }
+  }, 
+
+  addbookedList: data => {
+    return new Promise((resolve, reject) => {
+      connection.query(`INSERT INTO bookedlistroom SET ?`, data, (err, result) => {
+        if (!err) {
+          resolve(result);
+        } else {
+          reject(new Error(err));
+        }
+      });
+    });
+  }, 
+
 };
