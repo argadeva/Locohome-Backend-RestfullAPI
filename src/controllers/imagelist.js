@@ -45,4 +45,19 @@ module.exports = {
       .catch(err => console.log(err));
     
   },
+
+  deleteImage: (req, res) => {
+    const id = req.params.id
+    imageModel.getDetailimage(id)
+    .then(result => {
+        imageModel
+        .deleteImage(id, result[0].image)
+        .then(result => {
+          miscHelper.response(res, result, "Success", 200);
+        })
+        .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+    
+  },
 };

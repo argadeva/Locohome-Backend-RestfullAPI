@@ -55,5 +55,22 @@ module.exports = {
                 }
             })
         })
+    },
+
+    deleteImage: (id, image)=>{
+        return new Promise((resolve, reject)=>{
+            connecting.query(`DELETE FROM imagelistroom WHERE id = ${id}`, (err, result)=>{
+                if(!err){
+                    resolve(result)
+                    const path = image.replace('http://localhost:1000', '.')
+                    fs.unlink(path, function (err) {
+                        if (err) throw err;
+                        return
+                      });
+                }else{
+                    reject(err)
+                }
+            })
+        })
     }
 }

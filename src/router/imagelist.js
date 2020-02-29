@@ -31,5 +31,6 @@ const imageController = require("../controllers/imagelist");
 Router.get("/", imageController.getImagelist);
 Router.post("/addimage", upload.single('image'), imageController.addImage);
 Router.patch("/updateimage/:id", upload.single('image'), imageController.updateImage);
+Router.delete("/deleteimage/:id", imageController.deleteImage);
 
 module.exports = Router;
