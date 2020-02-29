@@ -1,5 +1,7 @@
 require ('dotenv').config();
 const connecting = require('../config/db');
+const fs = require('fs');
+
 
 module.exports = {
     getImage: ()=>{
@@ -19,6 +21,35 @@ module.exports = {
             connecting.query("INSERT INTO imagelistroom SET ?",data, (err, result)=>{
                 if(!err){
                     resolve(result)
+                }else{
+                    reject(err)
+                }
+            })
+        })
+    },
+
+    getDetailimage: (id)=>{
+        return new Promise((resolve, reject)=>{
+            connecting.query(`SELECT * FROM imagelistroom WHERE id = ${id}`, (err, result)=>{
+                if(!err){
+                    resolve(result)
+                }else{
+                    reject(err)
+                }
+            })
+        })
+    },
+
+    updateImage: (data, id, image)=>{
+        return new Promise((resolve, reject)=>{
+            connecting.query("UPDATE imagelistroom SET ? WHERE id = ?",[data, id], (err, result)=>{
+                if(!err){
+                    resolve(result)
+                    const path = image.replace('http://localhost:1000', '.')
+                    fs.unlink(path, function (err) {
+                        if (err) throw err;
+                        return
+                      });
                 }else{
                     reject(err)
                 }
