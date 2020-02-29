@@ -1,18 +1,19 @@
-const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-module.exports ={
-    verify : (req,res, next)=>{
-        // console.log(token)
-        try{
-            token = req.headers.token;
-            const decoded = jwt.verify(token, process.env.PRIVATE_KEY);
+const jwt = require('jsonwebtoken');
+module.exports = {
+    verify: (req,res,next) =>{
+        token = req.headers['x-access-token'];
+        console.log(token)
+        try {
+            var decoded = jwt.verify(token, process.env.PRIVATE_KEY);
             console.log(decoded)
             next();
-        }catch(err){
-            console.log(err)
-            res.json({
-                messege:'token infalid'
-            })
-        }
+          } catch(err) {
+              console.log(err)
+              res.json({
+                  msg: 'token invalid'
+              })
+          }
     }
 }
