@@ -40,7 +40,7 @@ module.exports={
         return new Promise((resolve, reject) => {
             
            
-            connection.query("SELECT * FROM users WHERE email=? AND password = ?", [email, password], (err, result) => {
+            connection.query("SELECT * FROM users WHERE email=? AND password = ? AND status = 1", [email, password], (err, result) => {
                 if(!err){
                     console.log("yee",token)
                     connection.query(`UPDATE users set token='${token}' where email='${email}'`)
