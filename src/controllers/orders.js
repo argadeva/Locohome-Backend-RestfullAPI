@@ -1,6 +1,6 @@
 const miscHelper = require("../helpers/message");
 const ordersModel = require("../models/orders");
-const moment = require('moment');
+// const moment = require('moment');
 
 module.exports = {
   getOrders: (req, res) => {
@@ -26,9 +26,15 @@ module.exports = {
       idListRoom,
       dateCheckIn,
       dateCheckOut,
-      totalPrice,
+      price,
       paymentStatus,
     } = req.body;
+
+    const date1 = new Date(dateCheckIn);
+    const date2 = new Date(dateCheckOut);
+    const diffTime = Math.abs((date2 - date1)+1 );
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    const totalPrice = diffDays * price
     const data = {
       idUser,
       idListRoom,
@@ -41,20 +47,21 @@ module.exports = {
     ordersModel
       .addOrders(data)
       .then(result => {
+        // console.log(result)
         data['id'] = result.insertId;
         miscHelper.response(res, data, "Success", 200);
       })
       .catch(err => console.log(err));
     
-    const dd = moment(dateCheckIn) 
-    const mm = moment(dateCheckOut)
-    for (var m = moment(dd); m.isBefore(mm); m.add(1, 'days')) {
-      // console.log(m.format('YYYY-MM-DD'));
-      const dateBooked = m.format('YYYY-MM-DD')
-      const input = {idListRoom,dateBooked}
-      // console.log(input)
-      ordersModel.addbookedList(input)
-    }
+    // const dd = moment(dateCheckIn) 
+    // const mm = moment(dateCheckOut)
+    // for (var m = moment(dd); m.isBefore(mm); m.add(1, 'days')) {
+    //   // console.log(m.format('YYYY-MM-DD'));
+    //   const dateBooked = m.format('YYYY-MM-DD')
+    //   const input = {idListRoom,dateBooked}
+    //   // console.log(input)
+    //   ordersModel.addbookedList(input)
+    // }
   },
   updateOrders: (req, res) => {
     const {
