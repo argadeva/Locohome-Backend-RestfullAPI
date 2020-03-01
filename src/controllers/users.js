@@ -45,8 +45,7 @@ module.exports = {
             from: '"LocoHome" <handika.yulma@gmail.com>',
             to: `${data.email}`,
             subject: "Verification your account",
-            text: `Please click this link to verification http://localhost:3000/users/verification/${token}`
-            
+            text: `Please click this link to verification http://18.206.61.46:1000/users/verification/${token}`
           };
           transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
@@ -133,8 +132,7 @@ module.exports = {
           });
         } else {
           res.json({
-            message: "user tidak ditemukan",
-            token: token
+            status_code: 404
           });
         }
       })
