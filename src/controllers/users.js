@@ -25,7 +25,8 @@ module.exports = {
       email,
       password,
       phoneNumber,
-      token: token
+      token: token,
+      status: 0
     };
     let OTP = Math.floor(Math.random() * 9999 + 1);
     usersModel
@@ -161,7 +162,7 @@ module.exports = {
           from: '"LocoHome" <handika.yulma@gmail.com>',
           to: `${email}`,
           subject: "Set New Password",
-          text: `Please click this link to set new password http://localhost:3000/users/setNewPassword/${token}`
+          text: `Please click this link to set new password http://18.206.61.46:1000/users/setNewPassword/${token}`
         };
         transporter.sendMail(mailOptions, function(error, info) {
           if (error) {
