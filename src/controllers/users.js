@@ -130,10 +130,6 @@ module.exports = {
           res.json({
             token: token
           });
-        } else {
-          res.json({
-            status_code: 404
-          });
         }
       })
       .catch(err => console.log(err));
