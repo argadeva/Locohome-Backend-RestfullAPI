@@ -130,6 +130,10 @@ module.exports = {
           res.json({
             token: token
           });
+        } else {
+          res.json({
+            token: null
+          });
         }
       })
       .catch(err => console.log(err));
