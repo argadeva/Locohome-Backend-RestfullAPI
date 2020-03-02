@@ -13,7 +13,8 @@ module.exports = {
 
     searchlistRoom: (req, res)=>{
         const data = req.params.data;
-        listroomModel.searchlistRoom(data)
+        const {dateCheckIn,dateCheckOut} = req.body;
+        listroomModel.searchlistRoom(data,dateCheckIn,dateCheckOut)
         .then(result=>{
             miscHelper.response(res, result, 200)
         })
@@ -67,9 +68,9 @@ module.exports = {
   },
 
   insertlistRoom: (req,res)=>{
-    const {idroom, description, bedType,fan, wardrobe, toilet, priceNight, personInroom, idGender} = req.body;
+    const {idRoom, description, bedType,fan, wardrobe, toilet, priceNight, personInroom, idGender} = req.body;
     const data = {
-        idroom,
+        idRoom,
         description,
         bedType,
         fan,
@@ -89,9 +90,9 @@ module.exports = {
 
 updatelistRoom: (req,res)=>{
   const id = req.params.id;
-  const {idroom, description, bedType,fan, wardrobe, toilet, priceNight, personInroom, idGender} = req.body;
+  const {idRoom, description, bedType,fan, wardrobe, toilet, priceNight, personInroom, idGender} = req.body;
   const data = {
-      idroom,
+      idRoom,
       description,
       bedType,
       fan,
