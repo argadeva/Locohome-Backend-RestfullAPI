@@ -4,7 +4,7 @@ const Router = Express.Router();
 const listRoomController = require("../controllers/listRoom");
 
 Router.get("/:idRoom", listRoomController.getlistRoom)
-  .get("/search/:data", listRoomController.searchlistRoom)
+  .post("/search/:data", listRoomController.searchlistRoom)
   .get("/sort/:data", listRoomController.sortRoom)
   .get("/pagination/:page", listRoomController.paginationlistRoom)
   .delete("/delete/:id", listRoomController.deletelistRoom)
