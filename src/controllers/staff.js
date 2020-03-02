@@ -111,16 +111,9 @@ module.exports = {
     staffModel
       .loginStaff(email, password, token)
       .then(result => {
-        // console.log(result);
-        if (result.length !== 0) {
-          res.json({
-            token: token
-          });
-        } else {
-          res.json({
-            token: null
-          });
-        }
+        res.json({
+          token: token
+        });
       })
       .catch(err => console.log(err));
   },
