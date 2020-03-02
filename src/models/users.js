@@ -14,6 +14,7 @@ module.exports = {
       });
     });
   },
+
   updateUsers: (email, data) => {
     return new Promise((resolve, reject) => {
       connection.query(
@@ -29,6 +30,7 @@ module.exports = {
       );
     });
   },
+
   deleteUsers: email => {
     return new Promise((resolve, reject) => {
       connection.query(
