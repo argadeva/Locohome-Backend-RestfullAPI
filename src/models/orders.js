@@ -64,24 +64,13 @@ module.exports = {
         }
       });
     });
-  }, 
+  },
 
   addbookedList: data => {
     return new Promise((resolve, reject) => {
-      connection.query(`INSERT INTO bookedlistroom SET ?`, data, (err, result) => {
-        if (!err) {
-          resolve(result);
-        } else {
-          reject(new Error(err));
-        }
-      });
-    });
-  }, 
-
-  getOrderByEmail: (email) => {
-    return new Promise((resolve, reject) => {
       connection.query(
-        `SELECT orders.*, DATE_FORMAT(orders.dateCheckIn, '%m/%d/%Y') as dateCheckIn, DATE_FORMAT(orders.dateCheckOut, '%m/%d/%Y') as dateCheckOut FROM orders INNER JOIN users ON orders.idUser = users.id WHERE users.email='${email}'`,
+        `INSERT INTO bookedlistroom SET ?`,
+        data,
         (err, result) => {
           if (!err) {
             resolve(result);
@@ -93,4 +82,18 @@ module.exports = {
     });
   },
 
+  getOrderByEmail: email => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `SELECT orders.*, DATE_FORMAT(orders.dateCheckIn, '%m/%d/%Y') as dateCheckIn, DATE_FORMAT(orders.dateCheckOut, '%m/%d/%Y') as dateCheckOut, room.homeName FROM orders INNER JOIN room ON orders.idRoom = room.id INNER JOIN users ON orders.idUser = users.id WHERE users.email='${email}'`,
+        (err, result) => {
+          if (!err) {
+            resolve(result);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  }
 };

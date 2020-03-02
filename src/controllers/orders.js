@@ -28,14 +28,14 @@ module.exports = {
       dateCheckIn,
       dateCheckOut,
       price,
-      paymentStatus,
+      paymentStatus
     } = req.body;
 
     const date1 = new Date(dateCheckIn);
     const date2 = new Date(dateCheckOut);
-    const diffTime = Math.abs((date2 - date1)+1 );
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-    const totalPrice = diffDays * price
+    const diffTime = Math.abs(date2 - date1 + 1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const totalPrice = diffDays * price;
     const data = {
       idUser,
       idRoom,
@@ -50,12 +50,12 @@ module.exports = {
       .addOrders(data)
       .then(result => {
         // console.log(result)
-        data['id'] = result.insertId;
+        data["id"] = result.insertId;
         miscHelper.response(res, data, "Success", 200);
       })
       .catch(err => console.log(err));
-    
-    // const dd = moment(dateCheckIn) 
+
+    // const dd = moment(dateCheckIn)
     // const mm = moment(dateCheckOut)
     // for (var m = moment(dd); m.isBefore(mm); m.add(1, 'days')) {
     //   // console.log(m.format('YYYY-MM-DD'));
@@ -108,5 +108,5 @@ module.exports = {
         miscHelper.response(res, result, "Success", 200);
       })
       .catch(err => console.log(err));
-  },
+  }
 };
