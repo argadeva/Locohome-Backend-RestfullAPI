@@ -46,8 +46,6 @@ module.exports = {
   },
   loginStaff: (email, password, token) => {
     return new Promise((resolve, reject) => {
-      console.log(token);
-
       connection.query(
         "SELECT * FROM staff WHERE email=? AND password = ? AND status = 1",
         [email, password],
