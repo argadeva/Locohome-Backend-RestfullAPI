@@ -50,11 +50,13 @@ module.exports = {
         "SELECT * FROM staff WHERE email=? AND password = ? AND status = 1",
         [email, password],
         (err, result) => {
+          console.log("data" + result);
+
           if (!err) {
+            resolve(result);
             connection.query(
               `UPDATE staff set token='${token}' where email='${email}'`
             );
-            resolve(result);
           } else {
             reject(new Error(err));
           }
