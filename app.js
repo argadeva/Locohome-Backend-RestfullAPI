@@ -11,7 +11,7 @@ app.use(morgan("combined"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use("/uploads", express.static("./uploads"));
+app.use("/upload", express.static("./upload"));
 
 const router = require("./src/router/index.js");
 app.use("/api/v1", router);

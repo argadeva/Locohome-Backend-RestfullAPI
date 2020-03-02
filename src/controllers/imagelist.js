@@ -4,7 +4,7 @@ const imageModel = require("../models/imagelist");
 
 module.exports = {
   getImagelist: (req, res) => {
-    const {idRoom} = req.body;
+    const { idRoom } = req.body;
     imageModel
       .getImage(idRoom)
       .then(result => {
@@ -14,11 +14,11 @@ module.exports = {
   },
 
   addImage: (req, res) => {
-    const {idRoom} = req.body;
+    const { idRoom } = req.body;
     const data = {
-        idRoom,
-        image: `http://localhost:1000/upload/${req.file.filename}`,
-    }
+      idRoom,
+      image: `http://18.206.61.46:1000/upload/${req.file.filename}`
+    };
     imageModel
       .addImage(data)
       .then(result => {
@@ -28,37 +28,37 @@ module.exports = {
   },
 
   updateImage: (req, res) => {
-    const id = req.params.id
-    const {idRoom} = req.body;
+    const id = req.params.id;
+    const { idRoom } = req.body;
     const data = {
-        idRoom,
-        image: `http://localhost:1000/upload/${req.file.filename}`,
-    }
-    imageModel.getDetailimage(id)
-    .then(result => {
+      idRoom,
+      image: `http://18.206.61.46:1000/upload/${req.file.filename}`
+    };
+    imageModel
+      .getDetailimage(id)
+      .then(result => {
         imageModel
-        .updateImage(data, id, result[0].image)
-        .then(result => {
-          miscHelper.response(res, result, "Success", 200);
-        })
-        .catch(err => console.log(err));
+          .updateImage(data, id, result[0].image)
+          .then(result => {
+            miscHelper.response(res, result, "Success", 200);
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
-    
   },
 
   deleteImage: (req, res) => {
-    const id = req.params.id
-    imageModel.getDetailimage(id)
-    .then(result => {
+    const id = req.params.id;
+    imageModel
+      .getDetailimage(id)
+      .then(result => {
         imageModel
-        .deleteImage(id, result[0].image)
-        .then(result => {
-          miscHelper.response(res, result, "Success", 200);
-        })
-        .catch(err => console.log(err));
+          .deleteImage(id, result[0].image)
+          .then(result => {
+            miscHelper.response(res, result, "Success", 200);
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
-    
-  },
+  }
 };
