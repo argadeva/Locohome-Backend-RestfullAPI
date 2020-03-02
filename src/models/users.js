@@ -53,7 +53,6 @@ module.exports = {
         [email, password],
         (err, result) => {
           if (!err) {
-            console.log("yee", token);
             connection.query(
               `UPDATE users set token='${token}' where email='${email}'`
             );
