@@ -11,16 +11,17 @@ module.exports = {
       })
       .catch(err => console.log(err));
   },
-  
-    searchlistRoom: (req, res)=>{
-        const data = req.params.data;
-        const {dateCheckIn,dateCheckOut} = req.body;
-        listroomModel.searchlistRoom(data,dateCheckIn,dateCheckOut)
-        .then(results=>{
-            miscHelper.response(res, results, 200);
-        })
-        .catch(err=> console.log(err))
-    },
+
+  searchlistRoom: (req, res) => {
+    const data = req.params.data;
+    const { dateCheckIn, dateCheckOut } = req.body;
+    listroomModel
+      .searchlistRoom(data, dateCheckIn, dateCheckOut)
+      .then(results => {
+        miscHelper.response(res, results, 200);
+      })
+      .catch(err => console.log(err));
+  },
 
   sortRoom: (req, res) => {
     const data = req.params.data;
@@ -70,32 +71,8 @@ module.exports = {
       .catch(err => console.log(err));
   },
 
-
-  insertlistRoom: (req,res)=>{
-    const {idRoom, description, bedType,fan, wardrobe, toilet, priceNight, personInroom, idGender} = req.body;
-    const data = {
-        idRoom,
-        description,
-        bedType,
-        fan,
-        wardrobe,
-        toilet,
-        priceNight,
-        personInroom,
-        idGender,
-    }
-    listroomModel.insertlistRoom(data)
-    .then((result)=>{
-        data['id'] = result.insertId
-        res.json(data)
-    })
-    .catch(err=>console.log(err))
-},
-
-updatelistRoom: (req,res)=>{
-  const id = req.params.id;
-  const {idRoom, description, bedType,fan, wardrobe, toilet, priceNight, personInroom, idGender} = req.body;
-  const data = {
+  insertlistRoom: (req, res) => {
+    const {
       idRoom,
       description,
       bedType,
@@ -107,7 +84,41 @@ updatelistRoom: (req,res)=>{
       idGender
     } = req.body;
     const data = {
-      idroom,
+      idRoom,
+      description,
+      bedType,
+      fan,
+      wardrobe,
+      toilet,
+      priceNight,
+      personInroom,
+      idGender
+    };
+    listroomModel
+      .insertlistRoom(data)
+      .then(result => {
+        data["id"] = result.insertId;
+        res.json(data);
+      })
+      .catch(err => console.log(err));
+  },
+
+  updatelistRoom: (req, res) => {
+    const id = req.params.id;
+    const {
+      idRoom,
+      description,
+      bedType,
+      fan,
+      wardrobe,
+      toilet,
+      priceNight,
+      personInroom,
+      idGender
+    } = req.body;
+
+    const data = {
+      idRoom,
       description,
       bedType,
       fan,
