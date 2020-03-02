@@ -18,10 +18,10 @@ module.exports = {
     });
   },
 
-  searchlistRoom: (data, dateCheckIn, dateCheckOut) => {
+  searchlistRoom: (data, date) => {
     return new Promise((resolve, reject) => {
       connecting.query(
-        `SELECT listroom.*, room.homeName, room.phoneNumber, room.ownerName, room.detailAddress, room.provinsi, room.kotaKabupaten, room.kecamatan, room.kecamatan, room.long, room.lat, GROUP_CONCAT(imagelistroom.image) AS image FROM imagelistroom, listroom INNER JOIN room ON listroom.idRoom = room.id WHERE listroom.id NOT IN (SELECT orders.idListRoom FROM orders WHERE orders.dateCheckIn BETWEEN '${dateCheckIn}' AND '${dateCheckOut}' OR orders.dateCheckOut BETWEEN '${dateCheckIn}' AND '${dateCheckOut}' or '${dateCheckIn}' BETWEEN orders.dateCheckIn AND orders.dateCheckOut or '${dateCheckOut}' BETWEEN orders.dateCheckIn AND orders.dateCheckOut) AND (room.homeName LIKE '%${data}%' OR room.provinsi LIKE '%${data}%' OR room.kotaKabupaten LIKE '%${data}%' OR room.kecamatan LIKE '%${data}%') AND listroom.id = imagelistroom.idRoom GROUP BY listroom.id`,
+        `SELECT listroom.*, room.homeName, room.phoneNumber, room.ownerName, room.detailAddress, room.provinsi, room.kotaKabupaten, room.kecamatan, room.kecamatan, room.long, room.lat, GROUP_CONCAT(imagelistroom.image) AS image FROM imagelistroom, listroom INNER JOIN room ON listroom.idRoom = room.id WHERE listroom.id NOT IN (SELECT orders.idListRoom FROM orders WHERE orders.dateCheckIn BETWEEN '${date.dateCheckIn}' AND '${date.dateCheckOut}' OR orders.dateCheckOut BETWEEN '${date.dateCheckIn}' AND '${date.dateCheckOut}' or '${date.dateCheckIn}' BETWEEN orders.dateCheckIn AND orders.dateCheckOut or '${date.dateCheckOut}' BETWEEN orders.dateCheckIn AND orders.dateCheckOut) AND (room.homeName LIKE '%${data}%' OR room.provinsi LIKE '%${data}%' OR room.kotaKabupaten LIKE '%${data}%' OR room.kecamatan LIKE '%${data}%') AND listroom.id = imagelistroom.idRoom GROUP BY listroom.id`,
         (err, result) => {
           if (!err) {
             resolve(result);
