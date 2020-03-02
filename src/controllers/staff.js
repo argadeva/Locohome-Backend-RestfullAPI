@@ -104,18 +104,15 @@ module.exports = {
   loginStaff: (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    // console.log('bisa')
     let token = jwt.sign(
       { email: email, password: password },
       process.env.PRIVATE_KEY
     );
-
     staffModel
       .loginStaff(email, password, token)
       .then(result => {
         console.log(result.length);
         if (result.length !== 0) {
-          // console.log(token);
           res.json({
             token: token
           });
