@@ -25,8 +25,12 @@ module.exports = {
       email,
       password,
       phoneNumber,
-      token: token
+      token: token,
+      status: 0
     };
+    if (data.phoneNumber.slice(0, 1) == 0) {
+      data.phoneNumber = data.phoneNumber.replace(0, 62);
+    }
     staffModel
       .registerStaff(data)
       .then(result => {
@@ -35,16 +39,16 @@ module.exports = {
         let transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
-            user: "handika.yulma@gmail.com",
-            pass: "handika1"
+            user: "locohome14@gmail.com",
+            pass: "arkademy1!"
           }
         });
 
         var mailOptions = {
-          from: '"LocoHome" <handika.yulma@gmail.com>',
+          from: '"LocoHome" <locohome14@gmail.com>',
           to: `${data.email}`,
           subject: "Verification your account",
-          text: `Please click this link to verification http://localhost:3000/verification/${token}`
+          text: `Please click this link to verification http://18.206.61.46:1000/staff/verification/${token}`
         };
         transporter.sendMail(mailOptions, function(error, info) {
           if (error) {
@@ -65,12 +69,13 @@ module.exports = {
     let token = req.params.token;
 
     staffModel.verificationStaff(token).then(result => {
-      res.json("sukses");
+      //console.log(result);
+      res.json("verify");
     });
   },
 
   updateStaff: (req, res) => {
-    const id_Staff = req.params.id_staff;
+    const emailUsers = req.params.email;
     const { firstName, lastName, email, password, phoneNumber } = req.body;
     const data = {
       firstName,
@@ -80,16 +85,16 @@ module.exports = {
       phoneNumber
     };
     staffModel
-      .updateStaff(id_Staff, data)
+      .updateStaff(emailUsers, data)
       .then(result => {
         res.json(result);
       })
       .catch(err => console.log(err));
   },
   deleteStaff: (req, res) => {
-    const id_Staff = req.params.id_staff;
+    const email = req.params.email;
     staffModel
-      .deleteStaff(id_Staff)
+      .deleteStaff(email)
       .then(result => {
         res.json(result);
       })
@@ -100,7 +105,7 @@ module.exports = {
     const email = req.body.email;
     const password = req.body.password;
     // console.log('bisa')
-    var token = jwt.sign(
+    let token = jwt.sign(
       { email: email, password: password },
       process.env.PRIVATE_KEY
     );
@@ -109,16 +114,14 @@ module.exports = {
       .loginStaff(email, password, token)
       .then(result => {
         console.log(result.length);
-        // res.json(result);
         if (result.length !== 0) {
-          console.log("yee", token);
+          // console.log(token);
           res.json({
-            token
+            token: token
           });
         } else {
-          console.log("yaa", token);
           res.json({
-            message: "user tidak ditemukan"
+            token: null
           });
         }
       })
@@ -138,16 +141,16 @@ module.exports = {
         let transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
-            user: "handika.yulma@gmail.com",
-            pass: "handika1"
+            user: "locohome14@gmail.com",
+            pass: "arkademy1!"
           }
         });
 
         var mailOptions = {
-          from: '"LocoHome" <handika.yulma@gmail.com>',
+          from: '"LocoHome" <locohome14@gmail.com>',
           to: `${email}`,
           subject: "Set New Password",
-          text: `Please click this link to set new password http://localhost:3000/setNewPassword/${token}`
+          text: `Please click this link to set new password http://localhost:3000/staff/setNewPassword/${token}`
         };
         transporter.sendMail(mailOptions, function(error, info) {
           if (error) {
@@ -163,16 +166,15 @@ module.exports = {
   setPasswordStaff: (req, res) => {
     token = req.params.token;
     password = req.body.password;
+    console.log(password);
     staffModel
       .setPasswordStaff(password, token)
       .then(result => {
         console.log(result.length);
         if (result.length !== 0) {
-          res.json({ msg: "set new password" });
+          res.json(true);
         } else {
-          res.json({
-            message: "user tidak ditemukan"
-          });
+          res.json(false);
         }
       })
       .catch(err => console.log(err));
@@ -191,7 +193,21 @@ module.exports = {
     staffModel
       .checkingToken(token)
       .then(result => {
-        res.json(true);
+        console.log(result.length);
+        if (result.length === 0) {
+          res.json(false);
+        } else {
+          res.json(true);
+        }
+      })
+      .catch(err => res.json(false));
+  },
+  getStaff: (req, res) => {
+    const email = req.params.email;
+    staffModel
+      .getStaff(email)
+      .then(result => {
+        res.json(result);
       })
       .catch(err => res.json(false));
   }
