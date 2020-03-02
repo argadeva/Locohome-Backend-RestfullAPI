@@ -11,6 +11,15 @@ module.exports = {
       .catch(err => console.log(err));
   },
 
+  detailRoom: (req, res) => {
+    const idRoom = req.params.id;
+    RoomModel.detailRoom(idRoom)
+      .then(result => {
+        miscHelper.response(res, result, 200);
+      })
+      .catch(err => console.log(err));
+  },
+
   deleteRoom: (req, res) => {
     const id = req.params.id;
     RoomModel.deleteRoom(id)
@@ -88,15 +97,6 @@ module.exports = {
     const { dateCheckIn, dateCheckOut, data } = req.body;
     listRoomModel
       .searchlistRoom(data, dateCheckIn, dateCheckOut)
-      .then(result => {
-        miscHelper.response(res, result, 200);
-      })
-      .catch(err => console.log(err));
-  },
-
-  detailRoom: (req, res) => {
-    const idRoom = req.params.id;
-    RoomModel.detailRoom(idRoom)
       .then(result => {
         miscHelper.response(res, result, 200);
       })
