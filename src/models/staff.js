@@ -14,11 +14,11 @@ module.exports = {
       });
     });
   },
-  updateStaff: (id_staff, data) => {
+  updateStaff: (email, data) => {
     return new Promise((resolve, reject) => {
       connection.query(
-        "UPDATE staff SET ? WHERE id = ?",
-        [data, id_staff],
+        "UPDATE staff SET ? WHERE email = ?",
+        [data, email],
         (err, result) => {
           if (!err) {
             resolve(result);
@@ -29,11 +29,11 @@ module.exports = {
       );
     });
   },
-  deleteStaff: id_staff => {
+  deleteStaff: email => {
     return new Promise((resolve, reject) => {
       connection.query(
-        "DELETE FROM staff WHERE id=?",
-        id_staff,
+        "DELETE FROM staff WHERE email=?",
+        email,
         (err, result) => {
           if (!err) {
             resolve(result);
@@ -95,6 +95,7 @@ module.exports = {
     });
   },
   setPasswordStaff: (password, token) => {
+    //console.log(password, " ", token);
     return new Promise((resolve, reject) => {
       connection.query(
         "UPDATE staff SET password=? WHERE forgotToken=?",
@@ -112,7 +113,7 @@ module.exports = {
   logoutStaff: token => {
     return new Promise((resolve, reject) => {
       connection.query(
-        "UPDATE staff SET token = null WHERE token = ?",
+        "UPDATE staff SET token = 0 WHERE token = ?",
         [token],
         (err, result) => {
           if (!err) {
@@ -129,6 +130,21 @@ module.exports = {
       connection.query(
         "SELECT token FROM staff WHERE token = ?",
         [token],
+        (err, result) => {
+          if (!err) {
+            resolve(result);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
+  getStaff: email => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        "SELECT * FROM staff WHERE email = ?",
+        [email],
         (err, result) => {
           if (!err) {
             resolve(result);

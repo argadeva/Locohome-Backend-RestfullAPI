@@ -4,8 +4,9 @@ const imageModel = require("../models/imagelist");
 
 module.exports = {
   getImagelist: (req, res) => {
+    const {idRoom} = req.body;
     imageModel
-      .getImage()
+      .getImage(idRoom)
       .then(result => {
         miscHelper.response(res, result, "Success", 200);
       })

@@ -16,9 +16,6 @@ module.exports = {
       process.env.PRIVATE_KEY
     );
 
-    console.log({
-      token: token
-    });
     const data = {
       firstName,
       lastName,
@@ -28,6 +25,11 @@ module.exports = {
       token: token,
       status: 0
     };
+    if (data.phoneNumber.slice(0, 1) == 0) {
+      data.phoneNumber = data.phoneNumber.replace(0, 62);
+    }
+    console.log(data.phoneNumber);
+
     let OTP = Math.floor(Math.random() * 9999 + 1);
     usersModel
       .registerUsers(data)
@@ -37,13 +39,13 @@ module.exports = {
           let transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-              user: "handika.yulma@gmail.com",
-              pass: "handika1"
+              user: "locohome14@gmail.com",
+              pass: "arkademy1!"
             }
           });
 
           var mailOptions = {
-            from: '"LocoHome" <handika.yulma@gmail.com>',
+            from: '"LocoHome" <locohome14@gmail.com>',
             to: `${data.email}`,
             subject: "Verification your account",
             text: `Please click this link to verification http://18.206.61.46:1000/users/verification/${token}`
@@ -80,12 +82,12 @@ module.exports = {
     let token = req.params.token;
 
     usersModel.verificationUsers(token).then(result => {
-      console.log("akun verify");
+      res.json("verify");
     });
   },
 
   updateUsers: (req, res) => {
-    const id_users = req.params.id_users;
+    const emailUsers = req.params.email;
     const { firstName, lastName, email, password, phoneNumber } = req.body;
     const data = {
       firstName,
@@ -95,16 +97,16 @@ module.exports = {
       phoneNumber
     };
     usersModel
-      .updateUsers(id_users, data)
+      .updateUsers(emailUsers, data)
       .then(result => {
         res.json(result);
       })
       .catch(err => console.log(err));
   },
   deleteUsers: (req, res) => {
-    const id_users = req.params.id_users;
+    const email = req.params.email;
     usersModel
-      .deleteUsers(id_users)
+      .deleteUsers(email)
       .then(result => {
         res.json(result);
       })
@@ -122,10 +124,10 @@ module.exports = {
       token: token
     });
 
+    console.log(email, password);
     usersModel
       .loginUsers(email, password, token)
       .then(result => {
-        console.log(result.length);
         // res.json(result);
         if (result.length !== 0) {
           res.json({
@@ -137,7 +139,7 @@ module.exports = {
           });
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err, "yee"));
   },
   forgetPasswordUsers: (req, res) => {
     const email = req.body.email;
@@ -153,13 +155,13 @@ module.exports = {
         let transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
-            user: "handika.yulma@gmail.com",
-            pass: "handika1"
+            user: "locohome14@gmail.com",
+            pass: "arkademy1!"
           }
         });
 
         var mailOptions = {
-          from: '"LocoHome" <handika.yulma@gmail.com>',
+          from: '"LocoHome" <locohome14@gmail.com>',
           to: `${email}`,
           subject: "Set New Password",
           text: `Please click this link to set new password http://18.206.61.46:1000/users/setNewPassword/${token}`
@@ -183,11 +185,9 @@ module.exports = {
       .then(result => {
         console.log(result.length);
         if (result.length !== 0) {
-          res.json({ msg: "set new password" });
+          res.json(true);
         } else {
-          res.json({
-            message: "user tidak ditemukan"
-          });
+          res.json(false);
         }
       })
       .catch(err => console.log(err));
@@ -212,6 +212,15 @@ module.exports = {
         } else {
           res.json(true);
         }
+      })
+      .catch(err => res.json(false));
+  },
+  getUsers: (req, res) => {
+    const email = req.params.email;
+    usersModel
+      .getUsers(email)
+      .then(result => {
+        res.json(result);
       })
       .catch(err => res.json(false));
   }

@@ -1,5 +1,7 @@
 const RoomModel = require('../models/room');
 const miscHelper = require('../helpers/helpers');
+const listRoomModel = require("../models/listroom");
+
 
 
 module.exports = {
@@ -40,6 +42,24 @@ module.exports = {
         .then(result=>{
             data['id'] = id
             miscHelper.response(res, data, 200)
+        })
+        .catch(err=> console.log(err))
+    },
+
+    searchRoom: (req, res)=>{
+        const {dateCheckIn,dateCheckOut,data} = req.body;
+        listRoomModel.searchlistRoom(data,dateCheckIn,dateCheckOut)
+        .then(result=>{
+            miscHelper.response(res, result, 200)
+        })
+        .catch(err=> console.log(err))
+    },
+
+    detailRoom: (req, res)=>{
+        const {idRoom} = req.body;
+        RoomModel.detailRoom(idRoom)
+        .then(result=>{
+            miscHelper.response(res, result, 200)
         })
         .catch(err=> console.log(err))
     },

@@ -2,6 +2,7 @@ const express = require("express");
 const Router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const auth = require('../helpers/auth')
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -28,9 +29,9 @@ const storage = multer.diskStorage({
 
 const imageController = require("../controllers/imagelist");
 
-Router.get("/", imageController.getImagelist);
-Router.post("/addimage", upload.single('image'), imageController.addImage);
-Router.patch("/updateimage/:id", upload.single('image'), imageController.updateImage);
-Router.delete("/deleteimage/:id", imageController.deleteImage);
+Router.get("/",auth.verify, imageController.getImagelist);
+Router.post("/addimage",auth.verify, upload.single('image'), imageController.addImage);
+Router.patch("/updateimage/:id",auth.verify, upload.single('image'), imageController.updateImage);
+Router.delete("/deleteimage/:id",auth.verify, imageController.deleteImage);
 
 module.exports = Router;

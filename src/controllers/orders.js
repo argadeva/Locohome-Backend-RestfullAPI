@@ -23,6 +23,7 @@ module.exports = {
   addOrders: (req, res) => {
     const {
       idUser,
+      idRoom,
       idListRoom,
       dateCheckIn,
       dateCheckOut,
@@ -37,6 +38,7 @@ module.exports = {
     const totalPrice = diffDays * price
     const data = {
       idUser,
+      idRoom,
       idListRoom,
       dateCheckIn,
       dateCheckOut,
@@ -96,5 +98,15 @@ module.exports = {
         miscHelper.response(res, result, "Success", 200);
       })
       .catch(err => console.log(err));
-  }
+  },
+
+  getOrderByEmail: (req, res) => {
+    const email = req.params.email;
+    ordersModel
+      .getOrderByEmail(email)
+      .then(result => {
+        miscHelper.response(res, result, "Success", 200);
+      })
+      .catch(err => console.log(err));
+  },
 };

@@ -14,11 +14,12 @@ module.exports = {
       });
     });
   },
-  updateUsers: (id_users, data) => {
+
+  updateUsers: (email, data) => {
     return new Promise((resolve, reject) => {
       connection.query(
-        "UPDATE users SET ? WHERE id = ?",
-        [data, id_users],
+        "UPDATE users SET ? WHERE email = ?",
+        [data, email],
         (err, result) => {
           if (!err) {
             resolve(result);
@@ -29,11 +30,12 @@ module.exports = {
       );
     });
   },
-  deleteUsers: id_users => {
+
+  deleteUsers: email => {
     return new Promise((resolve, reject) => {
       connection.query(
-        "DELETE FROM users WHERE id=?",
-        id_users,
+        "DELETE FROM users WHERE email=?",
+        email,
         (err, result) => {
           if (!err) {
             resolve(result);
@@ -128,6 +130,21 @@ module.exports = {
       connection.query(
         "SELECT token FROM users WHERE token = ?",
         [token],
+        (err, result) => {
+          if (!err) {
+            resolve(result);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
+  getUsers: email => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        "SELECT * FROM users WHERE email = ?",
+        [email],
         (err, result) => {
           if (!err) {
             resolve(result);

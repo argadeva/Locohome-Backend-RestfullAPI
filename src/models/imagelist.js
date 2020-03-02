@@ -4,9 +4,9 @@ const fs = require('fs');
 
 
 module.exports = {
-    getImage: ()=>{
+    getImage: (idRoom)=>{
         return new Promise((resolve, reject)=>{
-            connecting.query("SELECT * FROM imagelistroom", (err, result)=>{
+            connecting.query('SELECT * FROM imagelistroom WHERE idRoom = ?', idRoom, (err, result)=>{
                 if(!err){
                     resolve(result)
                 }else{

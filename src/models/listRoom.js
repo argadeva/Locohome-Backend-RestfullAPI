@@ -4,19 +4,20 @@ const connecting = require('../config/db');
 module.exports = {
     getlistRoom: (idRoom)=>{
         return new Promise((resolve, reject)=>{
-            connecting.query("SELECT room.homeName, room.provinsi, room.kotaKabupaten, room.kecamatan, room.detailAddress, room.long, room.lat, listroom.description, listroom.bedType, listroom.fan, listroom.wardrobe, listroom.toilet, listroom.priceNight, listroom.personInroom, listroom.idGender FROM room INNER JOIN listroom ON room.id=listroom.idRoom WHERE room.id = ?", idRoom,  (err, result)=>{
+            connecting.query("SELECT room.id, room.homeName, room.phoneNumber, room.ownerName, room.provinsi, room.kotaKabupaten, room.kecamatan, room.detailAddress, room.long, room.lat, listroom.description, listroom.bedType, listroom.fan, listroom.wardrobe, listroom.toilet, listroom.priceNight, listroom.personInroom, listroom.idGender FROM room INNER JOIN listroom ON room.id=listroom.idRoom WHERE room.id = ?", idRoom,  (err, result)=>{
                 if(!err){
                     resolve(result)
                 }else{
                     reject(err)
                 }
             })
+            
         })
     },
 
-    searchlistRoom: (data)=>{
+    searchlistRoom: (data,dateCheckIn,dateCheckOut)=>{
         return new Promise((resolve, reject)=>{
-            connecting.query(`SELECT listroom.*, room.homeName, room.phoneNumber, room.provinsi, room.kotaKabupaten, room.kecamatan, room.kecamatan FROM listroom INNER JOIN room ON listroom.idRoom = room.id WHERE (listroom.id IN (SELECT orders.idListRoom FROM orders WHERE NOT (orders.dateCheckIn <= "2020-02-01" AND orders.dateCheckOut >= "2020-02-05")) OR listroom.id NOT IN (SELECT orders.idListRoom FROM orders)) AND (room.homeName LIKE '%${data}%' OR room.provinsi LIKE '%${data}%' OR room.kotaKabupaten LIKE '%${data}%' OR room.kecamatan LIKE '%${data}%')`,  (err, result)=>{
+            connecting.query(`SELECT listroom.*, room.homeName, room.phoneNumber, room.ownerName, room.detailAddress, room.provinsi, room.kotaKabupaten, room.kecamatan, room.kecamatan, room.long, room.lat, GROUP_CONCAT(imagelistroom.image) AS image FROM imagelistroom, listroom INNER JOIN room ON listroom.idRoom = room.id WHERE (listroom.id IN (SELECT orders.idListRoom FROM orders WHERE NOT (orders.dateCheckIn <= "${dateCheckIn}" AND orders.dateCheckOut >= "${dateCheckOut}")) OR listroom.id NOT IN (SELECT orders.idListRoom FROM orders)) AND (room.homeName LIKE '%${data}%' OR room.provinsi LIKE '%${data}%' OR room.kotaKabupaten LIKE '%${data}%' OR room.kecamatan LIKE '%${data}%') AND listroom.id = imagelistroom.idRoom GROUP BY listroom.id`,  (err, result)=>{
                 if(!err){
                     resolve(result)
                 }else{
