@@ -4,7 +4,7 @@ const Router = Express.Router();
 const RoomController = require("../controllers/room");
 
 Router.get("/", auth.verify, RoomController.getRoom);
-Router.get("/detail", auth.verify, RoomController.detailRoom);
+Router.get("/:id", auth.verify, RoomController.detailRoom);
 Router.delete("/delete/:id", auth.verify, RoomController.deleteRoom);
 Router.post("/insert", auth.verify, RoomController.isertRoom);
 Router.put("/update/:id", auth.verify, RoomController.updateRoom);

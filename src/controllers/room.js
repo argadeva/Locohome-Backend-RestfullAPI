@@ -95,7 +95,7 @@ module.exports = {
   },
 
   detailRoom: (req, res) => {
-    const { idRoom } = req.body;
+    const idRoom = req.params.id;
     RoomModel.detailRoom(idRoom)
       .then(result => {
         miscHelper.response(res, result, 200);
