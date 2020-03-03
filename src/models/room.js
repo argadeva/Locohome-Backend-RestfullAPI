@@ -61,4 +61,19 @@ module.exports = {
             })
         })
     },
+
+    searchAllRoom: (data) => {
+        return new Promise((resolve, reject) => {
+          connecting.query(
+            `SELECT listroom.*, room.homeName, room.phoneNumber, room.ownerName, room.detailAddress, room.provinsi, room.kotaKabupaten, room.kecamatan, room.kecamatan, room.long, room.lat FROM listroom INNER JOIN room ON listroom.idRoom = room.id WHERE room.homeName LIKE '%${data}%' OR room.provinsi LIKE '%${data}%' OR room.kotaKabupaten LIKE '%${data}%' OR room.kecamatan LIKE '%${data}%'`,
+            (err, result) => {
+              if (!err) {
+                resolve(result);
+              } else {
+                reject(err);
+              }
+            }
+          );
+        });
+      },
 }

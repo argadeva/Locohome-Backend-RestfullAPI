@@ -101,5 +101,15 @@ module.exports = {
         miscHelper.response(res, result, 200);
       })
       .catch(err => console.log(err));
+  },
+
+  searchAll: (req, res) => {
+    const {data} = req.body;
+    RoomModel
+      .searchAllRoom(data)
+      .then(result => {
+        miscHelper.response(res, result, 200);
+      })
+      .catch(err => console.log(err));
   }
 };
