@@ -9,6 +9,6 @@ Router.delete("/delete/:id", auth.verify, RoomController.deleteRoom);
 Router.post("/insert", auth.verify, RoomController.isertRoom);
 Router.put("/update/:id", auth.verify, RoomController.updateRoom);
 Router.get("/search", auth.verify, RoomController.searchRoom);
-Router.get("/searchall", RoomController.searchAll);
+Router.post("/searchall", RoomController.searchAll);
 
 module.exports = Router;

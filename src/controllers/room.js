@@ -104,9 +104,8 @@ module.exports = {
   },
 
   searchAll: (req, res) => {
-    const {data} = req.body;
-    RoomModel
-      .searchAllRoom(data)
+    const { data } = req.body;
+    RoomModel.searchAllRoom(data)
       .then(result => {
         miscHelper.response(res, result, 200);
       })
