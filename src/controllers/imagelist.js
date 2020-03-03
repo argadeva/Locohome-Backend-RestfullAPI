@@ -39,6 +39,7 @@ module.exports = {
       .getDetailimage(id)
       .then(result => {
         console.log("then" + data.image);
+        console.log("coba" + result[0].image);
 
         imageModel
           .updateImage(data, id, result[0].image)
