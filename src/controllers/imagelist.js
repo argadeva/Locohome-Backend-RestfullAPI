@@ -34,9 +34,12 @@ module.exports = {
       idRoom,
       image: `http://18.206.61.46:1000/upload/${req.file.filename}`
     };
+    console.log("bfore" + req.file.filename);
     imageModel
       .getDetailimage(id)
       .then(result => {
+        console.log("then" + data.image);
+
         imageModel
           .updateImage(data, id, result[0].image)
           .then(result => {
