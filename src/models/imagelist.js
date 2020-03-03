@@ -78,7 +78,7 @@ module.exports = {
         (err, result) => {
           if (!err) {
             resolve(result);
-            const path = image.replace("http://localhost:1000", ".");
+            const path = image.replace("http://18.206.61.46:1000", ".");
             fs.unlink(path, function(err) {
               if (err) throw err;
               return;
