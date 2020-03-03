@@ -29,7 +29,7 @@ const upload = multer({
 
 const imageController = require("../controllers/imagelist");
 
-Router.get("/:idRoom", auth.verify, imageController.getImagelist);
+Router.get("/:idRoom", imageController.getImagelist);
 Router.post(
   "/addimage",
   auth.verify,
