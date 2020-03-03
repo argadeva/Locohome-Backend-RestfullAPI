@@ -4,7 +4,7 @@ const imageModel = require("../models/imagelist");
 
 module.exports = {
   getImagelist: (req, res) => {
-    const { idRoom } = req.body;
+    const idRoom = req.params.idRoom;
     imageModel
       .getImage(idRoom)
       .then(result => {
