@@ -85,7 +85,7 @@ module.exports = {
   getOrderByEmail: email => {
     return new Promise((resolve, reject) => {
       connection.query(
-        `SELECT orders.*, orders.id as id, DATE_FORMAT(orders.dateCheckIn, '%d-%m-%Y') as dateCheckIn, DATE_FORMAT(orders.dateCheckOut, '%d-%m-%Y') as dateCheckOut, room.*, GROUP_CONCAT(imagelistroom.image) AS image FROM imagelistroom, orders INNER JOIN room ON orders.idRoom = room.id INNER JOIN users ON orders.idUser = users.id WHERE users.email='${email}' AND orders.idListRoom = imagelistroom.idRoom GROUP BY orders.id`,
+        `SELECT orders.*, orders.id as ordersId, DATE_FORMAT(orders.dateCheckIn, '%d-%m-%Y') as dateCheckIn, DATE_FORMAT(orders.dateCheckOut, '%d-%m-%Y') as dateCheckOut, room.*, GROUP_CONCAT(imagelistroom.image) AS image FROM imagelistroom, orders INNER JOIN room ON orders.idRoom = room.id INNER JOIN users ON orders.idUser = users.id WHERE users.email='${email}' AND orders.idListRoom = imagelistroom.idRoom GROUP BY orders.id`,
         (err, result) => {
           if (!err) {
             resolve(result);
