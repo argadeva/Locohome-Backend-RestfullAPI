@@ -114,7 +114,7 @@ module.exports = {
   getOrderForStaff: () => {
     return new Promise((resolve, reject) => {
       connection.query(
-        `SELECT orders.*, users.* FROM orders INNER JOIN users ON orders.idUser=users.id`,
+        `SELECT orders.*, orders.id as idOrder, users.* FROM orders INNER JOIN users ON orders.idUser=users.id`,
         (err, result) => {
           if (!err) {
             resolve(result);
