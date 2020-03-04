@@ -99,23 +99,13 @@ module.exports = {
     };
     usersModel
       .getUsers(emailUsers)
-      .then(result => {
-      if(result[0].image !== null) {
-        usersModel
-        .updateUsers(emailUsers, data, result[0].image)
-        .then(result => {
-          res.json(result);
-        })
-        .catch(err => console.log(err));
-      } else {
+      .then(results => {
       usersModel
         .updateUsersNoImage(emailUsers, data)
         .then(result => {
           res.json(result);
         })
-      }
       })
-    
   },
   deleteUsers: (req, res) => {
     const email = req.params.email;
