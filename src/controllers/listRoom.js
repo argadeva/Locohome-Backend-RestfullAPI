@@ -14,10 +14,11 @@ module.exports = {
 
   searchlistRoom: (req, res) => {
     const data = req.params.data;
-    const { dateCheckIn, dateCheckOut } = req.body;
+    const { dateCheckIn, dateCheckOut, sort } = req.body;
     const date = {
       dateCheckIn,
-      dateCheckOut
+      dateCheckOut,
+      sort
     };
     listroomModel
       .searchlistRoom(data, date)
