@@ -16,18 +16,35 @@ module.exports = {
     });
   },
 
-  updateUsers: (email, data,image) => {
+  updateUsers: (email, data, image) => {
     return new Promise((resolve, reject) => {
       connection.query(
         "UPDATE users SET ? WHERE email = ?",
         [data, email],
         (err, result) => {
           if (!err) {
-            resolve(result);const path = image.replace("http://18.206.61.46:1000", ".");
+            resolve(result);
+            const path = image.replace("http://18.206.61.46:1000", ".");
             fs.unlink(path, function(err) {
               if (err) throw err;
               return;
             });
+          } else {
+            reject(err);
+          }
+        }
+      );
+    });
+  },
+  
+  updateUsersNoImage: (email, data) => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        "UPDATE users SET ? WHERE email = ?",
+        [data, email],
+        (err, result) => {
+          if (!err) {
+            resolve(result);
           } else {
             reject(err);
           }
