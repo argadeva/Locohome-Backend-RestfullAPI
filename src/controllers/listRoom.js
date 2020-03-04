@@ -14,6 +14,7 @@ module.exports = {
 
   searchlistRoom: (req, res) => {
     const data = req.params.data;
+    const page = req.params.page;
     const { dateCheckIn, dateCheckOut, sort } = req.body;
     const date = {
       dateCheckIn,
@@ -21,7 +22,7 @@ module.exports = {
       sort
     };
     listroomModel
-      .searchlistRoom(data, date)
+      .searchlistRoom(data, date, page)
       .then(results => {
         miscHelper.response(res, results, 200);
       })
