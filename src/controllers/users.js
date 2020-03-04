@@ -100,15 +100,20 @@ module.exports = {
     usersModel
       .getUsers(emailUsers)
       .then(result => {
-        // res.json(result);
-        console.log(result[0].image)
+      if(result[0].image !== null) {
         usersModel
         .updateUsers(emailUsers, data, result[0].image)
         .then(result => {
-  
           res.json(result);
         })
         .catch(err => console.log(err));
+      } else {
+      usersModel
+        .updateUsersNoImage(emailUsers, data)
+        .then(result => {
+          res.json(result);
+        })
+      }
       })
     
   },
