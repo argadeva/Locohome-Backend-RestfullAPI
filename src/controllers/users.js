@@ -96,7 +96,7 @@ module.exports = {
       password,
       phoneNumber,
     };
-    if (typeof req.file !== 'undefined') {
+    if (typeof req.file !== undefined) {
       Object.assign(data, {
         image: `http://18.206.61.46:1000/upload/${req.file.filename}`,
       });
