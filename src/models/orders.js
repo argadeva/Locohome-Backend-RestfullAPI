@@ -95,5 +95,34 @@ module.exports = {
         }
       );
     });
-  }
+  },
+
+  updatePaymentStatus: (id) => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `UPDATE orders SET paymentStatus  = 1 WHERE id= ${id}`,
+        (err, result) => {
+          if (!err) {
+            resolve(result);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
+  getOrderForStaff: () => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `SELECT orders.*, users.* FROM orders INNER JOIN users ON orders.idUser=users.id`,
+        (err, result) => {
+          if (!err) {
+            resolve(result);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
 };

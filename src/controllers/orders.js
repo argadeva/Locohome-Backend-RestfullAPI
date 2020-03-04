@@ -108,5 +108,24 @@ module.exports = {
         miscHelper.response(res, result, "Success", 200);
       })
       .catch(err => console.log(err));
-  }
+  },
+
+  getOrderStaff: (req, res) => {
+    ordersModel
+      .getOrderForStaff()
+      .then(result => {
+        miscHelper.response(res, result, "Success", 200);
+      })
+      .catch(err => console.log(err));
+  },
+
+  updatePaymentStatus: (req, res) => {
+    const id = req.params.id;
+    ordersModel
+      .updatePaymentStatus(id)
+      .then(result => {
+        miscHelper.response(res, result, "Success", 200);
+      })
+      .catch(err => console.log(err));
+  },
 };
