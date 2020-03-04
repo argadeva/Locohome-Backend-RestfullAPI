@@ -1,4 +1,5 @@
 require("dotenv");
+const fs = require("fs");
 
 const connection = require("../config/db");
 
@@ -15,16 +16,20 @@ module.exports = {
     });
   },
 
-  updateUsers: (email, data) => {
+  updateUsers: (email, data,image) => {
     return new Promise((resolve, reject) => {
       connection.query(
         "UPDATE users SET ? WHERE email = ?",
         [data, email],
         (err, result) => {
           if (!err) {
-            resolve(result);
+            resolve(result);const path = image.replace("http://18.206.61.46:1000", ".");
+            fs.unlink(path, function(err) {
+              if (err) throw err;
+              return;
+            });
           } else {
-            reject(new Error(err));
+            reject(err);
           }
         }
       );
@@ -153,5 +158,41 @@ module.exports = {
         }
       );
     });
-  }
+  },
+
+  getImageUser: email => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        "SELECT * FROM image WHERE email = ?",
+        [email],
+        (err, result) => {
+          if (!err) {
+            resolve(result);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
+  updateImage: (image,email) => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        "UPDATE image SET ? WHERE email = ?",
+        [image,email],
+        (err, result) => {
+          if (!err) {
+            resolve(result);
+            const path = image.replace("http://18.206.61.46:1000", ".");
+            fs.unlink(path, function(err) {
+              if (err) throw err;
+              return;
+            });
+          } else {
+            reject(err);
+          }
+        }
+      );
+    });
+  },
 };

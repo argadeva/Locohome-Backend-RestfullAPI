@@ -48,7 +48,7 @@ module.exports = {
           from: '"LocoHome" <locohome14@gmail.com>',
           to: `${data.email}`,
           subject: "Verification your account",
-          text: `Please click this link to verification http://18.206.61.46:1000/staff/verification/${token}`
+          text: `Please click this link to verification http://18.206.61.46/staff/verification/${token}`
         };
         transporter.sendMail(mailOptions, function(error, info) {
           if (error) {
@@ -150,7 +150,7 @@ module.exports = {
           from: '"LocoHome" <locohome14@gmail.com>',
           to: `${email}`,
           subject: "Set New Password",
-          text: `Please click this link to set new password http://localhost:3000/staff/setNewPassword/${token}`
+          text: `Please click this link to set new password http://18.206.61.46/staff/setNewPassword/${token}`
         };
         transporter.sendMail(mailOptions, function(error, info) {
           if (error) {
