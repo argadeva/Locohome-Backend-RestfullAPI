@@ -97,15 +97,20 @@ module.exports = {
       phoneNumber,
       image: `http://18.206.61.46:1000/upload/${req.file.filename}`
     };
-    usersModel
-      .getUsers(emailUsers)
-      .then(results => {
-      usersModel
-        .updateUsersNoImage(emailUsers, data)
-        .then(result => {
+    usersModel.getUsers(emailUsers).then(results => {
+      if (results[0].image !== null) {
+        usersModel
+          .updateUsers(emailUsers, data, results[0].image)
+          .then(result => {
+            res.json(result);
+          })
+          .catch(err => console.log(err));
+      } else {
+        usersModel.updateUsersNoImage(emailUsers, data).then(result => {
           res.json(result);
-        })
-      })
+        });
+      }
+    });
   },
   deleteUsers: (req, res) => {
     const email = req.params.email;
