@@ -19,7 +19,7 @@ module.exports = {
   },
 
   searchlistRoom: (data, date, page) => {
-    let display = 2;
+    let display = 3;
     let pages = page;
     let total = pages > 1 ? pages * display - display : 0;
     return new Promise((resolve, reject) => {
