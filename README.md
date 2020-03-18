@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://github.com/argadeva/djago-backend-restfulapi/raw/master/demo/logo.png" width="200">
+  <img src="https://github.com/argadeva/Locohome-Backend-RestfullAPI/blob/master/demo/logo.png" width="200">
   <br>
   LocoHome Backend RestFulAPI
   <br>
