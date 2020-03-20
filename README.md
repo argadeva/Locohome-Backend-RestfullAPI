@@ -6,21 +6,19 @@
   <br>
 </h1>
 
-<h4 align="center">Built with NodeJS using the ExpressJS Framework. ExpressJS is a web application framework for NodeJS. <a href="https://en.wikipedia.org/wiki/Express.js" target="_blank">More about Express</a></h4>
-
 <p align="center">
   <img src="https://img.shields.io/badge/Node.js-v12.14.1-success">
   <img src="https://img.shields.io/badge/Express.js-v.4.17.1-informational">
 </p>
 
-<p align="center">
-  <a href="#introduction">Introduction</a> •
-  <a href="#flowchart">Flowchart</a> •
-  <a href="#how-to-use">How To Use</a> •
-  <a href="#related-project ">Related Project</a> •
-  <a href="#api-versioning">API Versioning</a> •
-  <a href="#contributors">Contributors</a>
-</p>
+## Table of Contents
+
+- [Introduction](#introduction)
+- [How To Install](#how-to-install)
+- [API Versioning](#api-versioning)
+- [List of Endpoints](#list-of-endpoints)
+- [Related Project](#related-project)
+- [Contributors](#contributors)
 
 ## Introduction
 
@@ -37,30 +35,39 @@ LocoHome Backend RestFulAPI is a Home Booking App with restful api. The main fea
 
 LocoHome Backend RestFulAPI is written in Node Js with Express framework, it uses MySQL as data storage back-end and has a simple but intuitive user interface.
 
-## Flowchart
+## How To Install
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgICBBe1VTRVJTfSAtLT4gQihSRUdJU1RFUilcbiAgICBBIC0tPiBDKChMT0dJTikpXG4gICAgQiAtLT4gQ1xuICAgIEMgLS0-IEUoU0VBUkNIIFJPT00pXG4gICAgRSAtLT4gRlxuICAgIEMgLS0-IEYoTElTVCBST09NKVxuICAgIEYgLS0-IEkoQ0hFQ0tPVVQgLyBQQVlNRU5UIEdBVEVXQVkpXG4gICAgSSAtLT4gS1xuICAgIEwgLS0-IEooKExPR09VVCkpXG4gICAgQyAtLT4gSyhISVNUT1JZKVxuICAgIEMgLS0-IEwoVVNFUlMpIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbiAgICBBe1VTRVJTfSAtLT4gQihSRUdJU1RFUilcbiAgICBBIC0tPiBDKChMT0dJTikpXG4gICAgQiAtLT4gQ1xuICAgIEMgLS0-IEUoU0VBUkNIIFJPT00pXG4gICAgRSAtLT4gRlxuICAgIEMgLS0-IEYoTElTVCBST09NKVxuICAgIEYgLS0-IEkoQ0hFQ0tPVVQgLyBQQVlNRU5UIEdBVEVXQVkpXG4gICAgSSAtLT4gS1xuICAgIEwgLS0-IEooKExPR09VVCkpXG4gICAgQyAtLT4gSyhISVNUT1JZKVxuICAgIEMgLS0-IEwoVVNFUlMpIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)
+1. Clone this repository
 
-## How To Use
+   ```
+   $ git clone https://github.com/argadeva/Locohome-Backend-RestfullAPI.git
+   ```
 
-- Please make sure that you have : node.js installed ([https://nodejs.org/](https://nodejs.org/))
-- Download or clone this file and then config & import MySQL database.
-- You can use [POSTMAN](https://www.getpostman.com/) or anything else for simulate.
-- The app loads the environment variable by reading `.env` file in the root directory of the project. Create `.env` file with environment variable in line with following:
+2. Create a database and import file [database.sql](https://github.com/argadeva/Locohome-Backend-RestfullAPI/raw/master/demo/database.sql) to database.
 
-  ```
-  SERVER_PORT = 1000
-  DB_HOST = "localhost"
-  DB_USER = "your-user"
-  DB_PASS = "your-password"
-  DB_NAME = "your-database"
-  PRIVATE_KEY = "your-private-key"
-  URL = "http://localhost:1000/"
-  ```
+3. Install all depedencies on the package.json
 
-## Related Project
+   ```
+   $ cd Locohome-Backend-RestfullAPI
+   $ npm install
+   ```
 
-- [`LocoHome Mobile App`](https://github.com/argadeva/Locohome-Mobile)
+4. Create `.env` file with environment variable in line with following:
+
+   ```
+   SERVER_PORT = 1000
+   DB_HOST = "localhost"
+   DB_USER = "your-user"
+   DB_PASS = "your-password"
+   DB_NAME = "your-database"
+   PRIVATE_KEY = "your-private-key"
+   URL = "http://localhost:1000/"
+   ```
+
+5. Run
+   ```
+   $ npm start
+   ```
 
 ## API Versioning
 
@@ -71,6 +78,10 @@ For example, version 1 of the API (most current) is accessible via:
 ```
 https://localhost:1000/api/v1/
 ```
+
+## Related Project
+
+- [`LocoHome Mobile App`](https://github.com/argadeva/Locohome-Mobile)
 
 ## Contributors
 
